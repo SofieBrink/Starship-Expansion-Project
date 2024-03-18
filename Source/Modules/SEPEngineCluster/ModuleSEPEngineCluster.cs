@@ -12,41 +12,31 @@ namespace StarshipExpansionProject.Modules
     {
         private const string MODULENAME = "ModuleSEPEngineCluster";
 
+        [SerializeField]
         private List<SEPEngineSet> EngineSets = new List<SEPEngineSet>();
         public override void OnLoad(ConfigNode val)
         {
-            Debug.Log($"[{MODULENAME}] Present OnLoad");
-
-            foreach (var node in val.GetNodes(nameof(SEPEngineSet)))
+            Debug.Log($"[{MODULENAME}] Present OnLoad in Scene: {HighLogic.LoadedScene}");
+            if (HighLogic.LoadedScene == GameScenes.LOADING)
             {
-                EngineSets.Add(new SEPEngineSet(pPart: part, pConfNode: node));
-            }
-   //         if (val.HasNode(nameof(ModuleSEPEngineSet)))
-   //         {
-			//	var tmp = val.GetNode(nameof(ModuleSEPEngineSet));
-			//	Debug.Log(tmp);
-   //             part.AddModule(tmp);
-			//}
-			//else
-   //         {
-   //             Debug.Log(val);
-   //         }
-            for (int i = 0; i < part.Modules.Count; i++)
-			{
-                Debug.Log(part.Modules.GetModule(i).moduleName);
+				foreach (var node in val.GetNodes(nameof(SEPEngineSet)))
+				{
+					var tmpEngineSet = ScriptableObject.CreateInstance<SEPEngineSet>();
+					tmpEngineSet.Construct(pPart: part, pConfNode: node);
+					EngineSets.Add(tmpEngineSet);
+				}
 			}
-
-            Debug.Log($"[{MODULENAME}] Scene: {HighLogic.LoadedScene}");
         }
 
-		public override void OnSave(ConfigNode node)
+		public override void OnStart(StartState state)
 		{
-            Debug.Log($"[{MODULENAME}] OnSave1 {node}");
-            foreach(var engineSet in EngineSets)
-            {
-                node.AddNode(engineSet.ConstructToConfignode());
-            }
-			Debug.Log($"[{MODULENAME}] OnSave2 {node}");
+			foreach(var node in EngineSets)
+			{
+				foreach (var engineTransform in node.engineTransforms)
+				{
+					Debug.Log($"[{MODULENAME}] Transform: {engineTransform.Key} with value: {engineTransform.Value}");
+				}
+			}
 		}
 	}
 }
