@@ -16,7 +16,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\ModuleSEPPezDispenser.cs" />
     <Compile Include="Modules\ModuleSEPVaporCone.cs" />
     <Compile Include="Modules\ModuleSEPPartSwitchAction.cs" />
     <Compile Include="Modules\ModuleSEPEngineGUI.cs" />
@@ -86,4 +87,12 @@
     <PostBuildEvent>xcopy /Y "$(TargetPath)" "$(ReferencePath)GameData\$(TargetName)\Plugin"
 xcopy /Y "$(TargetPath)" "$(SolutionDir)..\GameData\$(TargetName)\Plugin"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="AfterBuild">
+    <!-- Copy the DLL -->
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ReferencePath)GameData\$(TargetName)\Plugin" />
+    <!-- Conditionally copy the PDB file for Debug configuration -->
+    <Copy Condition="'$(Configuration)' == 'Debug'" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(ReferencePath)GameData\$(TargetName)\Plugin" />
+    <!-- Also copy the DLL to the git repo folder -->
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SolutionDir)..\GameData\$(TargetName)\Plugin" />
+  </Target>
 </Project>
