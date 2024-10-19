@@ -7,7 +7,7 @@ x-env:
 inputs:
   artifacts:
     description: Space-separated list of file globs to include in the output artifact, relative to `working-directory`
-    default: GameData LICENSE* README* CHANGELOG*
+    default: LICENSE* README* CHANGELOG*
 
   artifacts-exclude:
     description: Space-separated list of file globs remove from the staging directory before zipping
@@ -53,7 +53,7 @@ runs:
         mkdir -p ${{ env.RELEASE_STAGING }}/SEP/GameData
         mkdir -p ${{ env.RELEASE_STAGING }}/SEP_IVA
         
-        rsync -av --exclude="GameData/StarshipExpansionProject/Spaces" \
+        rsync -av --exclude="StarshipExpansionProject/Spaces" \
           GameData/ ${{ env.RELEASE_STAGING }}/SEP/GameData/
         
         rsync -av GameData/StarshipExpansionProject/Spaces/ ${{ env.RELEASE_STAGING }}/SEP_IVA/Spaces/
