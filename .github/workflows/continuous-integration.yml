@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    uses: ./.github/workflows/internal-build@SetupWorkflows
+    uses: ./.github/workflows/internal-build
     with:
       solution-file-path: 'Source/Starship-Expansion-Project.sln'
       use-ckan: true

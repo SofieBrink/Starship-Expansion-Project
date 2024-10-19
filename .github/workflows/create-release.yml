@@ -9,7 +9,7 @@ on:
 
 jobs:
   internal-create-release:
-    uses: ./.github/workflows/internal-create-release@SetupWorkflows
+    uses: ./.github/workflows/internal-create-release
     with:
       solution-file-path: 'Source/Starship-Expansion-Project.sln'
       use-ckan: true
