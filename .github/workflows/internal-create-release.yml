@@ -100,7 +100,7 @@ jobs:
 
       - name: assemble-release
         id: assemble-release
-        uses: ./.github/actions/assemble-release.yml
+        uses: ./.github/actions/assemble-release
         with:
           artifacts: ${{ inputs.artifacts }}
           output-file-name: ${{ github.event.repository.name }}-${{ env.VERSION_STRING }}
