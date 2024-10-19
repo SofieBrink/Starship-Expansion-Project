@@ -14,4 +14,4 @@ jobs:
       solution-file-path: 'Source/Starship-Expansion-Project.sln'
       use-ckan: true
       version-string: ${{ inputs.version-string }}
-      artifacts: LICENSE* README* CHANGELOG*
+      artifacts: LICENSE* README* CHANGELOG* Extras

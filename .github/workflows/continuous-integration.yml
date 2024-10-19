@@ -17,4 +17,4 @@ jobs:
     with:
       solution-file-path: 'Source/Starship-Expansion-Project.sln'
       use-ckan: true
-      artifacts: LICENSE* README* CHANGELOG*
+      artifacts: LICENSE* README* CHANGELOG* Extras
